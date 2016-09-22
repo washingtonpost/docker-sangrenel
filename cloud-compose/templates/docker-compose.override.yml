@@ -1,0 +1,37 @@
+version: '2'
+services:
+  sangrenel:
+    image: washpost/sangrenel
+    environment:
+      TOPIC: {{ TOPIC }}
+      {%- if KAFKA_DNS is defined %}
+      KAFKA_DNS: '{{ KAFKA_DNS }}'
+      {%- endif %}
+      {%- if KAFKA_BROKERS is defined %}
+      KAFKA_BROKERS: '{{ KAFKA_BROKERS }}'
+      {%- endif %}
+      {%- if BATCH_SIZE is defined %}
+      BATCH_SIZE: '{{ BATCH_SIZE }}'
+      {%- endif %}
+      {%- if MSG_SIZE is defined %}
+      MSG_SIZE: '{{ MSG_SIZE }}'
+      {%- endif %}
+      {%- if COMPRESSION is defined %}
+      COMPRESSION: '{{ COMPRESSION }}'
+      {%- endif %}
+      {%- if CLIENTS is defined %}
+      CLIENTS: '{{ CLIENTS }}'
+      {%- endif %}
+      {%- if PRODUCERS is defined %}
+      PRODUCERS: '{{ PRODUCERS }}'
+      {%- endif %}
+      {%- if NOOP is defined %}
+      NOOP: '{{ NOOP }}'
+      {%- endif %}
+    {%- if logging is defined and logging.driver is defined and logging.driver == "awslogs" %}
+    logging:
+      driver: awslogs
+      options:
+        awslogs-group: {{ logging.meta.group }}
+        awslogs-stream: sangrenel.${INSTANCE_IP}
+    {%- endif %}
