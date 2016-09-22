@@ -1,0 +1,10 @@
+version: '2'
+services:
+  sangrenel:
+    build: .
+    environment:
+      KAFKA_BROKERS: localhost:9092
+      TOPIC: sangrenel.12.none
+      BATCH_SIZE: "1000"
+      MSG_SIZE: "1000"
+      COMPRESSION: none
