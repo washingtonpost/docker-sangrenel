@@ -2,6 +2,7 @@ version: '2'
 services:
   sangrenel:
     image: washpost/sangrenel
+    network_mode: host
     environment:
       TOPIC: {{ TOPIC }}
       {%- if KAFKA_DNS is defined %}
